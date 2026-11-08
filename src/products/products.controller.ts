@@ -7,6 +7,8 @@ import { Auth } from '../auth/decorators/auth.decorator.js';
 import { ValidRoles } from '../auth/interfaces/valid-roles.js';
 import { GetUser } from '../auth/decorators/get-user.decorator.js';
 import { User } from '../auth/entities/user.entity.js';
+import { ApiResponse } from '@nestjs/swagger';
+import { Product } from './entities/product.entity.js';
 
 @Controller('products')
 // @Auth() // Agremos acá si necesitamos que todos accedan a todos los endpoint estando logiado 
@@ -15,6 +17,9 @@ export class ProductsController {
 
   @Post()
   @Auth(ValidRoles.admin, ValidRoles.supervisor) //Solo los roles admin y supervisor pueden crear productos
+  @ApiResponse({status: 201, description: 'Products was created', type:Product})
+  @ApiResponse({status: 400, description: 'Bad reques'})
+  @ApiResponse({status: 403, description: 'Forbidden. Token related.'})
   create(
     @Body() createProductDto: CreateProductDto,
     @GetUser() user:User,
@@ -23,7 +28,7 @@ export class ProductsController {
   }
 
   @Get()
-  @Auth() // debe estar logeado para acceder acá
+  // @Auth() // debe estar logeado para acceder acá
   findAll(@Query() paginationDto:PaginationDto) {
     console.log(paginationDto);
     return this.productsService.findAll(paginationDto);
