@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module.js';
   imports: [
     ConfigModule.forRoot(),
       TypeOrmModule.forRoot({      
+        ssl: process.env.STAGE === 'prod',
         host: process.env.DB_HOST,      
         type: 'postgres',      
         database: process.env.DB_NAME,      
