@@ -1,8 +1,8 @@
 {
-  "name": "learning-nestjs",
+  "name": "nestjs-shop",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Template de pruebas con NestJs",
+  "author": "Néstor Namuncura",
   "private": true,
   "license": "UNLICENSED",
   "type": "module",
